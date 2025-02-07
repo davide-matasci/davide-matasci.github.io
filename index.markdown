@@ -7,5 +7,4 @@ layout: home
 
 {{ site.description | escape }}
 
-* [Twitter/X](https://x.com/davide_matasci)
 * [GitHub](https://github.com/davide-matasci)
