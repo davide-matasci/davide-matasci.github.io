@@ -6,5 +6,3 @@ layout: home
 ---
 
 {{ site.description | escape }}
-
-* [GitHub](https://github.com/davide-matasci)
