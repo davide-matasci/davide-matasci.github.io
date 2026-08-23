@@ -19,7 +19,13 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.2"
-          bundler-cache: true
+          bundler-cache: false
+
+      # Gemfile.lock was generated on Windows (x64-mingw-ucrt) only.
+      - name: Install gems
+        run: |
+          bundle lock --add-platform x86_64-linux
+          bundle install
 
       - name: Build site
         run: bundle exec jekyll build
