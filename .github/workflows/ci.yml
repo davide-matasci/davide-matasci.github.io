@@ -15,19 +15,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.2"
-          bundler-cache: false
-
-      # Gemfile.lock was generated on Windows (x64-mingw-ucrt) only.
-      - name: Install gems
-        run: |
-          bundle lock --add-platform x86_64-linux
-          bundle install
-
+      # Build with the same image GitHub Pages itself uses to publish this
+      # site, so CI checks exactly what gets deployed. This avoids compiling
+      # the native gems from Gemfile.lock on the runner, which broke when the
+      # runner's Ruby and compiler were updated (commonmarker 0.23.10 no
+      # longer compiles there).
       - name: Build site
-        run: bundle exec jekyll build
-        env:
-          JEKYLL_ENV: production
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
